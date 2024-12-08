@@ -1,12 +1,11 @@
-const alasql = require('../dist/alasql.js'); 
+const alasql = require('../dist/alasql.js');
 
 if (typeof exports === 'object') {
 	var assert = require('assert');
 }
 
 describe('Test 2000', function () {
-
-    before(function () {
+	before(function () {
 		alasql('create database test');
 		alasql('use test');
 	});
@@ -15,54 +14,52 @@ describe('Test 2000', function () {
 		alasql('drop database test');
 	});
 
-    it('A) Select from memory', () => {
-        alasql('CREATE TABLE osoby (id INT, meno STRING)');
-        alasql('INSERT INTO osoby VALUES (1, "John"), (2, "Jane"), (3, "Jake")');
-        const result = alasql('SELECT * FROM osoby');
-        
-        assert.deepEqual(result, [
-            { id: 1, meno: "John" },
-            { id: 2, meno: "Jane" },
-            { id: 3, meno: "Jake" }
-        ]);
-    });
+	it('A) Select from memory', () => {
+		alasql('CREATE TABLE osoby (id INT, meno STRING)');
+		alasql('INSERT INTO osoby VALUES (1, "John"), (2, "Jane"), (3, "Jake")');
+		const result = alasql('SELECT * FROM osoby');
 
-    it('B) Max from memory', () => {
-        alasql('CREATE TABLE produkty (id INT, cena INT)');
-        alasql('INSERT INTO produkty VALUES (1, 100), (2, 150), (3, 200)');
-        const result = alasql('SELECT MAX(cena) AS maxCena FROM produkty');
-        
-        assert.strictEqual(result[0].maxCena, 200);
-    });
+		assert.deepEqual(result, [
+			{id: 1, meno: 'John'},
+			{id: 2, meno: 'Jane'},
+			{id: 3, meno: 'Jake'},
+		]);
+	});
 
-    it('C) Min from memory', () => {
-        alasql('CREATE TABLE produkty3 (id INT, cena INT)');
-        alasql('INSERT INTO produkty3 VALUES (1, 100), (2, 150), (3, 200)');
-        const result = alasql('SELECT MIN(cena) AS minCena FROM produkty3');
-        
-        assert.strictEqual(result[0].minCena, 100);
-    });
+	it('B) Max from memory', () => {
+		alasql('CREATE TABLE produkty (id INT, cena INT)');
+		alasql('INSERT INTO produkty VALUES (1, 100), (2, 150), (3, 200)');
+		const result = alasql('SELECT MAX(cena) AS maxCena FROM produkty');
 
-    it('Total from memory', () => {
-        alasql('CREATE TABLE produkty4 (id INT, cena INT)');
-        alasql('INSERT INTO produkty4 VALUES (1, 100), (2, 150), (3, 200)');
-        
-        const result = alasql('SELECT TOTAL(cena) AS totalCena FROM produkty4');
-        
-        assert.strictEqual(result[0].totalCena, 450);
-    });
+		assert.strictEqual(result[0].maxCena, 200);
+	});
 
-    it('E) Avg from memory', () => {
-        alasql('CREATE TABLE produkty2 (id INT, cena INT)');
-        alasql('INSERT INTO produkty2 VALUES (1, 100), (2, 150), (3, 200)');
-        const result = alasql('SELECT AVG(cena) AS avgCena FROM produkty2');
-        
-        assert.strictEqual(result[0].avgCena, 150);
-    });
+	it('C) Min from memory', () => {
+		alasql('CREATE TABLE produkty3 (id INT, cena INT)');
+		alasql('INSERT INTO produkty3 VALUES (1, 100), (2, 150), (3, 200)');
+		const result = alasql('SELECT MIN(cena) AS minCena FROM produkty3');
 
+		assert.strictEqual(result[0].minCena, 100);
+	});
 
+	it('Total from memory', () => {
+		alasql('CREATE TABLE produkty4 (id INT, cena INT)');
+		alasql('INSERT INTO produkty4 VALUES (1, 100), (2, 150), (3, 200)');
 
-    it('F) SUM with Round function from memory', function () {
+		const result = alasql('SELECT TOTAL(cena) AS totalCena FROM produkty4');
+
+		assert.strictEqual(result[0].totalCena, 450);
+	});
+
+	it('E) Avg from memory', () => {
+		alasql('CREATE TABLE produkty2 (id INT, cena INT)');
+		alasql('INSERT INTO produkty2 VALUES (1, 100), (2, 150), (3, 200)');
+		const result = alasql('SELECT AVG(cena) AS avgCena FROM produkty2');
+
+		assert.strictEqual(result[0].avgCena, 150);
+	});
+
+	it('F) SUM with Round function from memory', function () {
 		var data = [
 			{
 				a: null,
@@ -105,8 +102,6 @@ describe('Test 2000', function () {
 				f: 13,
 			},
 		]);
-
-		
 	});
 
 	it('G) MAX/MIN/SUM with Round or Ceil function from memory', function () {
@@ -160,4 +155,3 @@ describe('Test 2000', function () {
 		]);
 	});
 });
-
