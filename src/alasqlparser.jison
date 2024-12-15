@@ -168,14 +168,9 @@ DATABASE(S)?									return 'DATABASE'
 'LIMIT'											return 'LIMIT'
 'MATCHED'										return 'MATCHED'
 'MATRIX'										return 'MATRIX'
-
-/*"MAX"											return 'MAX'*/
-/*"MIN"											return 'MIN'*/
-
-'MAX'(\s+)?/'('									return 'MAX'
-'MAX'(\s+)?/(','|')')							return 'MAXNUM'
-'MIN'(\s+)?/'('									return 'MIN'
-
+'MAX'\s*/'('									return 'MAX'
+'MAX'\s*/(','|')')								return 'MAXNUM'
+'MIN'\s*/'('									return 'MIN'
 "MERGE"											return 'MERGE'
 "MINUS"											return 'EXCEPT'
 "MODIFY"										return 'MODIFY'
@@ -271,10 +266,7 @@ SETS                                        	return 'SET'
 'WHILE'                                         return 'WHILE'
 'WITH'                                          return 'WITH'
 'WORK'                                          return 'TRANSACTION'  /* Is this keyword required? */
-
-(\d*[.])?\d+[eE]\d+								return 'NUMBER'
-(\d*[.])?\d+									return 'NUMBER'
-
+(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?				return 'NUMBER'
 '->'											return 'ARROW'
 '#'												return 'SHARP'
 '+'												return 'PLUS'
@@ -2978,7 +2970,6 @@ Query
 
 Call
 	: CALL FuncValue
-		//{ $$ = $2; }
 		{ $$ = new yy.ExpressionStatement({expression:$2}); }
 	;
 
