@@ -24,12 +24,12 @@ jobs:
           node-version: '20.x'
       - run: yarn install --frozen-lockfile
       - run: yarn build-only
-      - uses: actions/upload-artifact@0c366cb4fc8897159c94880f94b55bc716ad6a66 # master
+      - uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
       - run: tar -cvf node_modules.tar node_modules
-      - uses: actions/upload-artifact@0c366cb4fc8897159c94880f94b55bc716ad6a66 # master
+      - uses: actions/upload-artifact@v4
         with:
           name: node_modules
           path: node_modules.tar
