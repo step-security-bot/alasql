@@ -8,11 +8,11 @@ on:
 
 jobs:
   Build:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
       - name: Bulid from src
-        uses: actions/setup-node@v4
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: '20.x'
       - run: yarn install --frozen-lockfile
@@ -29,14 +29,14 @@ jobs:
 
   test_node:
     needs: Build
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     strategy:
       matrix:
         node-version: [15.x, 16.x, 17.x, 18.x, 19.x, latest]
     steps:
       - uses: actions/checkout@v4
       - name: Run prod version with Node v${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
       - uses: actions/download-artifact@master
@@ -52,7 +52,7 @@ jobs:
 
   test_browser:
     needs: Build
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@master
