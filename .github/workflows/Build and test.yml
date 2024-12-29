@@ -29,14 +29,14 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn build-only
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: dist
           path: dist/
 
       - run: tar -cvf node_modules.tar node_modules
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@ff15f0306b3f739f7b6fd43fb5d26cd321bd4de5 # v3.2.1
         with:
           name: node_modules
           path: node_modules.tar
