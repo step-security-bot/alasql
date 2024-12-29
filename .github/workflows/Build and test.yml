@@ -42,6 +42,8 @@ jobs:
           path: node_modules.tar
 
   test_node:
+    permissions:
+      contents: read
     needs: Build
     runs-on: blacksmith-4vcpu-ubuntu-2204
     strategy:
@@ -74,6 +76,8 @@ jobs:
       - run: yarn test-only
 
   test_browser:
+    permissions:
+      contents: read
     needs: Build
     runs-on: blacksmith-4vcpu-ubuntu-2204
     steps:
